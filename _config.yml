@@ -15,13 +15,13 @@ preloader: true # To disable preloader change value to false
 menu:
   - name: Home
     url: /
-  # - name: Projects
-  #   url: /Projects/
-  #   submenu: 
-  #     - name : Deep Learning
-  #       url : /deep-learning/
-  #     - name : Data Engineering
-  #       url : /data-engineering/
+  - name: Projects
+    url: /Projects/
+    submenu: 
+      - name : Deep Learning
+        url : /deep-learning/
+      - name : Data Engineering
+        url : /data-engineering/
 
   - name: About
     url: /about/
