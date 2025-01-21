@@ -36,24 +36,24 @@ This project creates a Postgres database schema and ETL pipeline that transforms
 
 ### Core Components
 
-```
-1. create_tables.py
-   - Establishes database connection
-   - Drops existing tables to ensure fresh start
-   - Creates new tables using schema definitions
-   - Acts as a reset script for testing
-
-2. etl.py
-   - Implements the ETL pipeline
-   - Processes song and log data files
-   - Transforms JSON data into appropriate formats
-   - Loads data into Postgres tables
-
-3. sql_queries.py
-   - Contains all SQL queries used throughout the project
-   - Includes CREATE, DROP, INSERT, and SELECT statements
-   - Centralizes query management for maintainability
-```
+>```
+>1. create_tables.py
+>   - Establishes database connection
+>   - Drops existing tables to ensure fresh start
+>   - Creates new tables using schema definitions
+>   - Acts as a reset script for testing
+>
+>2. etl.py
+>   - Implements the ETL pipeline
+>   - Processes song and log data files
+>   - Transforms JSON data into appropriate formats
+>   - Loads data into Postgres tables
+>
+>3. sql_queries.py
+>   - Contains all SQL queries used throughout the project
+>   - Includes CREATE, DROP, INSERT, and SELECT statements
+>   - Centralizes query management for maintainability
+>```
 
 ## Database Schema Design
 
@@ -285,38 +285,47 @@ Processing steps:
 
 ## Key Achievements
 
- - a. Designed an optimized star schema for efficient querying of music streaming data
- - b. Built a robust ETL pipeline that successfully processes and transforms JSON data
- - c. Implemented data validation and quality checks throughout the pipeline
- - d. Created a queryable database that enables complex analysis of user listening patterns
- - e. Achieved efficient data loading with minimal duplicate records
- - f. Implemented error handling and logging for pipeline monitoring
+>```
+> 1. Designed an optimized star schema for efficient querying of music streaming data
+> 2. Built a robust ETL pipeline that successfully processes and transforms JSON data
+> 3. Implemented data validation and quality checks throughout the pipeline
+> 4. Created a queryable database that enables complex analysis of user listening patterns
+> 5. Achieved efficient data loading with minimal duplicate records
+> 6. Implemented error handling and logging for pipeline monitoring
+>```
 
 ## Technologies Used
 
-- Python 3.7+
-  - a. pandas for data manipulation
-  - b. psycopg2 for PostgreSQL connection
-  - c. json for parsing JSON files
-- PostgreSQL 9.6+
-  - a. SERIAL data type for auto-incrementing IDs
-  - b. Foreign key constraints for data integrity
-- SQL
-  - a. DDL for schema definition
-  - b. DML for data manipulation
-  - c. Complex joins and aggregations
-- JSON
-  - a. Nested data structure handling
-  - b. Data extraction and parsing
+>```
+>1. Python 3.7+
+>  - pandas for data manipulation
+>  - psycopg2 for PostgreSQL connection
+>  - json for parsing JSON files
+>
+>2. PostgreSQL 9.6+
+>  - SERIAL data type for auto-incrementing IDs
+>  - Foreign key constraints for data integrity
+>
+>3. SQL
+>  - DDL for schema definition
+>  - DML for data manipulation
+>  - Complex joins and aggregations
+>
+>4. JSON
+>  - Nested data structure handling
+>  - Data extraction and parsing
+>```
 
 ## Future Improvements
 
-1. Add data quality checks and constraints
-2. Implement incremental loading
-3. Add indexing for performance optimization
-4. Create automated testing suite
-5. Implement logging and monitoring
-6. Add data visualization dashboard
+>```
+>1. Add data quality checks and constraints
+>2. Implement incremental loading
+>3. Add indexing for performance optimization
+>4. Create automated testing suite
+>5. Implement logging and monitoring
+>6. Add data visualization dashboard
+>```
 
 <!-- ## Looking to Collaborate?
 
