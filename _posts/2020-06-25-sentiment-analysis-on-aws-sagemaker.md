@@ -2,7 +2,7 @@
 layout: post
 title: Sentiment Analysis on AWS SageMaker
 date: 2020-06-25T 20:46:10 +03:00
-description: "This is meta description"
+description: "Building an end-to-end sentiment analysis web application using PyTorch and AWS SageMaker to predict sentiment of movie reviews"
 image: "assets/images/masonary-post/sentiment-analysis.jpg"
 categories: 
   - "Deep Learning"
