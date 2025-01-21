@@ -2,7 +2,7 @@
 layout: post
 title: Face Generation with GAN
 date: 2020-06-14T 20:46:10 +03:00
-description: "This is meta description"
+description: "Building a deep convolutional generative adversarial network (DCGAN) to generate realistic human faces from random noise"
 image: "assets/images/masonary-post/face-gen.jpg"
 categories: 
   - "Deep Learning"
