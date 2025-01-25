@@ -7,6 +7,10 @@ image: "assets/images/masonary-post/dogs.jpg"
 categories: 
   - "Deep Learning"
 ---
+
+## [Dog Breed Classifier with CNN](https://github.com/shrikantnaidu/Dog-Breed-Classifier)
+
+---
 ### Why We're Here 
 
 In this project, we'll make the first steps towards developing an algorithm that could be used as part of a mobile or web app.  At the end of this project, our code will accept any user-supplied image as input.  If a dog is detected in the image, it will provide an estimate of the dog's breed.  If a human is detected, it will provide an estimate of the dog breed that is most resembling.  The image below displays potential sample output of our finished project
@@ -58,7 +62,7 @@ Output:
     There are 13233 total human images.
     There are 8351 total dog images.
 ```
-
+---
 <a id='step1'></a>
 ### Step 1: Detect Humans
 
@@ -106,6 +110,7 @@ Output:
 
 <img src="https://raw.githubusercontent.com/shrikantnaidu/shrikantnaidu.github.io/main/_posts/assets/output_3_1.png" alt="image" height="400" width="300">    
 
+---
 Before using any of the face detectors, it is standard procedure to convert the images to grayscale.  The `detectMultiScale` function executes the classifier stored in `face_cascade` and takes the grayscale image as a parameter.  
 
 In the above code, `faces` is a numpy array of detected faces, where each row corresponds to a detected face.  Each detected face is a 1D array with four entries that specifies the bounding box of the detected face.  The first two entries in the array (extracted in the above code as `x` and `y`) specify the horizontal and vertical positions of the top left corner of the bounding box.  The last two entries in the array (extracted here as `w` and `h`) specify the width and height of the box.
@@ -189,6 +194,7 @@ Output:
     100%|██████████| 553433881/553433881 [00:05<00:00, 99176335.73it/s] 
 ```
 
+---
 Given an image, this pre-trained VGG-16 model returns a prediction (derived from the 1000 possible categories in ImageNet) for the object that is contained in the image.
 
 #### Making Predictions with a Pre-trained Model
@@ -536,8 +542,8 @@ Output:
     Epoch: 25 	Training Loss: 3.850253 	Validation Loss: 3.939559
 ```    
 
+---
 #### Test the Model
-
 
 >```python
 >def test(loaders, model, criterion, use_cuda):
@@ -651,6 +657,7 @@ Output:
     Output Features: 1000
 ```   
 
+---
 #### Model Architecture
 
 Using transfer learning, we create a CNN to classify dog breed.
@@ -737,8 +744,8 @@ Output:
     Validation loss decreased (0.408649 --> 0.391689).  Saving model ...
 ```   
 
+---
 #### Test the Model
-
 
 >```python
 >test(loaders_transfer, model_transfer, criterion_transfer, use_cuda)
@@ -751,6 +758,7 @@ Output:
     Test Accuracy: 86% (725/836)
  ```   
 
+---
 #### Predict Dog Breed with the Model
 
 We create a function that takes an image path as input and returns the dog breed (`Affenpinscher`, `Afghan hound`, etc) that is predicted by our model.  
@@ -1076,3 +1084,5 @@ Output:
 ### Conclusion
 
 We've successfully developed an algorithm that detects the dog breed for a dog image and estimates the closest resembling dog breed for a human. The model was initially built from scratch using CNNs, upon evaluation we learned that the model was not performing well so we leveraged transfer learning which performed way better than our intial model. 
+
+The complete implementation can be found in the [GitHub repository](https://github.com/shrikantnaidu/Dog-Breed-Classifier).
