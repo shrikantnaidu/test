@@ -7,8 +7,10 @@ image: "assets/images/masonary-post/postgres.png"
 categories: 
   - "Data Engineering"
 ---
+## [Data Modeling with Postgres](https://github.com/shrikantnaidu/Data-Modeling-with-Postgres)
+---
 
-## Project Overview
+### Project Overview
 
 Sparkify, a music streaming startup, wants to analyze user activity data collected from their new streaming app. The analytics team is particularly interested in understanding what songs users are listening to. Currently, their data resides in a directory of JSON logs containing user activity and JSON metadata about the songs in their app.
 
@@ -16,9 +18,9 @@ The challenge is that they have no easy way to query their data, which is curren
 
 This project creates a Postgres database schema and ETL pipeline that transforms raw JSON data into a structured format optimized for song play analysis. The goal is to enable the analytics team to easily run queries and generate insights about user listening patterns.
 
-## Technical Architecture
+### Technical Architecture
 
-### Project Structure
+#### Project Structure
 >```
 >data_modeling_postgres/
 >│
@@ -34,32 +36,31 @@ This project creates a Postgres database schema and ETL pipeline that transforms
 >└── README.md                # Project documentation
 >```
 
-### Core Components
+#### Core Components
 
->```
->1. create_tables.py
->   - Establishes database connection
->   - Drops existing tables to ensure fresh start
->   - Creates new tables using schema definitions
->   - Acts as a reset script for testing
->
->2. etl.py
->   - Implements the ETL pipeline
->   - Processes song and log data files
->   - Transforms JSON data into appropriate formats
->   - Loads data into Postgres tables
->
->3. sql_queries.py
->   - Contains all SQL queries used throughout the project
->   - Includes CREATE, DROP, INSERT, and SELECT statements
->   - Centralizes query management for maintainability
->```
+• **create_tables.py**
+- • Establishes database connection
+- • Drops existing tables to ensure fresh start
+- • Creates new tables using schema definitions
+- • Acts as a reset script for testing
 
-## Database Schema Design
+• **etl.py**
+- • Implements the ETL pipeline
+- • Processes song and log data files
+- • Transforms JSON data into appropriate formats
+- • Loads data into Postgres tables
+
+• **sql_queries.py**
+- • Contains all SQL queries used throughout the project
+- • Includes CREATE, DROP, INSERT, and SELECT statements
+- • Centralizes query management for maintainability
+
+
+### Database Schema Design
 
 The database uses a star schema optimized for song play analysis. This design prioritizes denormalization and simplifies queries while maintaining data integrity.
 
-### Fact Table
+#### Fact Table
 
 **songplays** - Records in log data associated with song plays
 >```sql
@@ -80,7 +81,7 @@ The database uses a star schema optimized for song play analysis. This design pr
 >);
 >```
 
-### Dimension Tables
+#### Dimension Tables
 
 **users** - User information
 >```sql
@@ -128,9 +129,9 @@ The database uses a star schema optimized for song play analysis. This design pr
 >);
 >```
 
-## ETL Pipeline Implementation
+### ETL Pipeline Implementation
 
-### 1. Song Data Processing
+#### 1. Song Data Processing
 
 The ETL pipeline first processes song data from JSON files structured like:
 >```json
@@ -163,7 +164,7 @@ Processing steps:
 >    cur.execute(artist_table_insert, artist_data)
 >```
 
-### 2. Log Data Processing
+#### 2. Log Data Processing
 
 Next, it processes user activity logs:
 >```json
@@ -230,9 +231,9 @@ Processing steps:
 >        cur.execute(songplay_table_insert, songplay_data)
 >```
 
-## Example Queries and Results
+### Example Queries and Results
 
-### 1. Most Active Users
+#### 1. Most Active Users
 >```sql
 >SELECT u.first_name, u.last_name, COUNT(*) as play_count
 >FROM songplays sp
@@ -242,7 +243,7 @@ Processing steps:
 >LIMIT 5;
 >```
 
-### 2. Popular Music Hours
+#### 2. Popular Music Hours
 >```sql
 >SELECT t.hour, COUNT(*) as play_count
 >FROM songplays sp
@@ -251,7 +252,7 @@ Processing steps:
 >ORDER BY play_count DESC;
 >```
 
-### 3. User Activity by Location
+#### 3. User Activity by Location
 >```sql
 >SELECT location, COUNT(*) as activity_count
 >FROM songplays
@@ -260,7 +261,7 @@ Processing steps:
 >LIMIT 10;
 >```
 
-## How to Run
+### How to Run
 
 #### 1. Create and activate a Python virtual environment:
 >```bash
@@ -283,48 +284,46 @@ Processing steps:
 >python etl.py
 >```
 
-## Key Achievements
+### Key Achievements
 
->```
-> 1. Designed an optimized star schema for efficient querying of music streaming data
-> 2. Built a robust ETL pipeline that successfully processes and transforms JSON data
-> 3. Implemented data validation and quality checks throughout the pipeline
-> 4. Created a queryable database that enables complex analysis of user listening patterns
-> 5. Achieved efficient data loading with minimal duplicate records
-> 6. Implemented error handling and logging for pipeline monitoring
->```
+- a. Designed an optimized star schema for efficient querying of music streaming data.
+- b. Built a robust ETL pipeline that successfully processes and transforms JSON data.
+- c. Implemented data validation and quality checks throughout the pipeline.
+- d. Created a queryable database that enables complex analysis of user listening patterns.
+- e. Achieved efficient data loading with minimal duplicate records.
+- f. Implemented error handling and logging for pipeline monitoring.
 
-## Technologies Used
+### Technologies Used
 
->```
->1. Python 3.7+
->  - pandas for data manipulation
->  - psycopg2 for PostgreSQL connection
->  - json for parsing JSON files
->
->2. PostgreSQL 9.6+
->  - SERIAL data type for auto-incrementing IDs
->  - Foreign key constraints for data integrity
->
->3. SQL
->  - DDL for schema definition
->  - DML for data manipulation
->  - Complex joins and aggregations
->```
+• **Python 3.7+**
+
+- • pandas for data manipulation
+- • psycopg2 for PostgreSQL connection
+- • json for parsing JSON files
+
+• **PostgreSQL 9.6+**
+
+- • SERIAL data type for auto-incrementing IDs
+- • Foreign key constraints for data integrity
+
+• **SQL**
+
+- • DDL for schema definition
+- • DML for data manipulation
+- • Complex joins and aggregations
 
 
-## Future Improvements
+### Future Improvements
 
->```
->1. Add data quality checks and constraints
->2. Implement incremental loading
->3. Add indexing for performance optimization
->4. Create automated testing suite
->5. Implement logging and monitoring
->6. Add data visualization dashboard
->```
+- a. Add data quality checks and constraints
+- b. Implement incremental loading
+- c. Add indexing for performance optimization
+- d. Create automated testing suite
+- e. Implement logging and monitoring
+- f. Add data visualization dashboard
 
-## Conclusion
+
+### Conclusion
 
 This project successfully demonstrates the process of designing and implementing a robust data modeling solution using PostgreSQL for Sparkify. By creating an optimized star schema and a comprehensive ETL pipeline, we have enabled the analytics team to efficiently query and analyze user activity data, leading to valuable insights into user behavior and song preferences.
 
