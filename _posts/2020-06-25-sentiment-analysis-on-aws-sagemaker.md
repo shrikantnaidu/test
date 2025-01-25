@@ -8,7 +8,7 @@ categories:
   - "Deep Learning"
 ---
 
-## Sentiment Analysis using Pytorch on AWS SageMaker
+## [Sentiment Analysis using Pytorch on AWS SageMaker](https://github.com/shrikantnaidu/Sentiment-Analysis-on-AWS-SageMaker)
 
 ---
 ### Why We're Here 
@@ -55,7 +55,7 @@ Output:
     2020-06-23 13:30:16 (2.58 MB/s) - ‘../data/aclImdb_v1.tar.gz’ saved [84125825/84125825]
 ```
     
-
+---
 ### Step 2: Preparing and Processing the data
 
 We'll start with some initial data processing. To begin with, we will read in each of the reviews and combine them into a single input structure. Then, we will split the dataset into a training set and a testing set.
@@ -133,6 +133,7 @@ Output:
     IMDb reviews (combined): train = 25000, test = 25000
 ```
 
+---
 Now that we have our training and testing sets unified and prepared, we should do a quick check and see an example of the data our model will be trained on. This is generally a good idea as it allows you to see how each of the further processing steps affects the reviews and it also ensures that the data has been loaded correctly.
 
 >```python
@@ -145,6 +146,7 @@ Output:
     0
 ```
 
+---
 The first step in processing the reviews is to make sure that any html tags that appear should be removed. In addition we wish to tokenize our input, that way words such as *entertained* and *entertaining* are considered the same with regard to sentiment analysis.
 
 
@@ -188,6 +190,7 @@ Output:
      'excus']
 ```
 
+---
 The method below applies the `review_to_words` method to each of the reviews in the training and testing datasets. In addition it caches the results. This is because performing this processing step can take a long time. This way if we are unable to complete the notebook in the current session, we can come back without needing to process the data a second time.
 
 
@@ -242,6 +245,7 @@ Output:
     Wrote preprocessed data to cache file: preprocessed_data.pkl
 ```
 
+---
 ### Transforming the data
 
 For the model we are going to construct we'll transform the data from its word representation to a bag-of-words feature representation. To start, we will represent each word as an integer. Of course, some of the words that appear in the reviews occur very infrequently and so likely don't contain much information for the purposes of sentiment analysis. The way we will deal with this problem is that we will fix the size of our working vocabulary and we will only include the words that appear most frequently. We will then combine all of the infrequent words into a single category and, in our case, we will label it as `1`.
@@ -292,6 +296,7 @@ Output:
     Top 5 Keywords: ['movi', 'film', 'one', 'like', 'time']
 ```
 
+---
 ### Saving the `word_dict`
 
 Later on when we construct an endpoint which processes a submitted review we will need to make use of the `word_dict` which we have created. As such, we will save it to a file now for future use.
@@ -391,7 +396,7 @@ Output:
         0    0    0    0    0    0    0    0    0    0]
 ```
 
-
+---
 ### Step 3: Upload the data to S3
 
 We will need to upload the training dataset to S3 in order for our training code to access it. For now we will save it locally and we will upload to S3 later on.
@@ -483,6 +488,7 @@ class LSTMClassifier(nn.Module):
 
 ```
 
+---
 The important takeaway from the implementation provided is that there are three parameters that we may wish to tweak to improve the performance of our model. These are the embedding dimension, the hidden dimension and the size of the vocabulary. We will likely want to make these parameters configurable in the training script so that if we wish to modify them we do not need to modify the script itself. We will see how to do this later on. To start we will write some of the training code in the notebook so that we can more easily diagnose any issues that arise.
 
 First we will load a small portion of the training data set to use as a sample. It would be very time consuming to try and train the model completely in the notebook as we do not have access to a gpu and the compute instance that we are using is not particularly powerful. However, we can work on a small bit of the data to get a feel for how our training script is behaving.
@@ -560,6 +566,7 @@ Output:
     Epoch: 5, BCELoss: 0.6543593883514405
 ```
 
+---
 In order to construct a PyTorch model using SageMaker we must provide SageMaker with a training script. We may optionally include a directory which will be copied to the container and from which our training code will be run. When the training container is executed it will check the uploaded directory (if there is one) for a `requirements.txt` file and install any required Python libraries, after which the training script will be run.
 
 #### Training the model
@@ -607,6 +614,7 @@ Output:
     Billable seconds: 276
 ```
 
+---
 ### Step 5: Testing the model
 
 As mentioned at the top of this notebook, we will be testing this model by first deploying it and then sending the testing data to the deployed endpoint. We will do this so that we can make sure that the deployed model is working correctly.
@@ -639,6 +647,7 @@ Output:
     ---------------!
 ```
 
+---
 ### Step 7 - Use the model for testing
 
 Once deployed, we can read in the test data and send it off to our deployed model to get some results. Once we collect all of the results we can determine how accurate our model is.
@@ -669,7 +678,7 @@ Output:
     0.84772
 ```
 
-
+---
 #### More testing
 
 We now have a trained model which has been deployed and which we can send processed reviews to and which returns the predicted sentiment. However, ultimately we would like to be able to send our model an unprocessed review. That is, we would like to send the review itself as a string. For example, suppose we wish to send the following review to our model.
@@ -712,7 +721,7 @@ Output:
     array(0.871142, dtype=float32)
 ```
 
-
+---
 Since the return value of our model is close to `1`, we can be certain that the review we submitted is positive.
 
 #### Delete the endpoint
@@ -751,6 +760,7 @@ Before writing our custom inference code, we will begin by taking a look at the 
 
 ```
 Output:
+
 import argparse
 import json
 import os
@@ -846,6 +856,7 @@ def predict_fn(input_data, model):
 
 ```
 
+---
 As mentioned earlier, the `model_fn` method is the same as the one provided in the training code and the `input_fn` and `output_fn` methods are very simple and your task will be to complete the `predict_fn` method. Make sure that you save the completed file as `predict.py` in the `serve` directory.
 
 
@@ -880,6 +891,7 @@ Output:
     ---------------!
 ```
 
+---
 #### Testing the model
 
 Now that we have deployed our model with the custom inference code, we should test to see if everything is working. Here we test our model by loading the first `250` positive and negative reviews and send them to the endpoint, then collect the results. The reason for only sending some of the data is that the amount of time it takes for our model to process the input and then perform inference is quite long and so testing the entire data set would be prohibitive.
@@ -933,6 +945,7 @@ Output:
     Starting  neg  files
 ```
 
+--- 
 
 >```python
 >from sklearn.metrics import accuracy_score
@@ -944,7 +957,7 @@ Output:
     0.858
 ```
 
-
+---
 As an additional test, we can try sending the `test_review` that we looked at earlier.
 
 
@@ -957,7 +970,7 @@ Output:
     b'1'
 ```
 
-
+---
 Now that we know our endpoint is working as expected, we can set up the web page that will interact with it.
 
 ### Step 7 (again): Use the model for the web app
@@ -1032,7 +1045,7 @@ Output:
     'sagemaker-pytorch-2020-06-23-15-40-30-967'
 ```
 
-
+---
 Once you have added the endpoint name to the Lambda function, click on **Save**. Your Lambda function is now up and running. Next we need to create a way for our web app to execute the Lambda function.
 
 #### Setting up API Gateway
@@ -1078,3 +1091,9 @@ Remember to always shut down your endpoint if you are no longer using it. We are
 >```python
 >predictor.delete_endpoint()
 >```
+
+### Conclusion
+
+We've successfully developed a deep learning model that can classify the sentiment of movie reviews as either positive or negative, using AWS SageMaker. The model was trained on the IMDB dataset and achieved a high accuracy. We also deployed the model as a publicly accessible API using API Gateway and created a simple web app to interact with the model. This project demonstrates the power of AWS SageMaker in building, training, and deploying machine learning models at scale.
+
+The complete implementation can be found in the [GitHub repository](https://github.com/shrikantnaidu/Sentiment-Analysis-on-AWS-SageMaker).
