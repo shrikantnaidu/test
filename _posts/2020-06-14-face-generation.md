@@ -8,7 +8,7 @@ categories:
   - "Deep Learning"
 ---
 
-## Face Generation with GAN
+## [Face Generation with GAN](https://github.com/shrikantnaidu/Face-Generation)
 
 ---
 ### Why We're Here
@@ -141,7 +141,9 @@ Note: We'll need to convert the Tensor images into a NumPy type and transpose th
 Output:
 ```
 ![png](https://raw.githubusercontent.com/shrikantnaidu/shrikantnaidu.github.io/main/_posts/assets/output_9_0.png)
-    
+
+---
+
 #### Pre-process the image data and scale it to a pixel range of -1 to 1
 
 We need to do a bit of pre-processing; we know that the output of a `tanh` activated generator will contain pixel values in a range from -1 to 1, and so, we need to rescale our training images to a range of -1 to 1. (Right now, they are in a range from 0-1.)
@@ -258,7 +260,7 @@ Creating the Discriminator class such that it satisfies these requirements:
 Output:
     Tests Passed
 ```    
-
+---
 #### Generator
 
 The generator should upsample an input and generate a *new* image of the same size as our training data `32x32x3`. This should be mostly transpose convolutional layers with normalization applied to the outputs.
@@ -326,7 +328,7 @@ Creating the Generator class such that it satisfies these requirements:
 Output:
     Tests Passed
 ```
-
+---
 ### Initialize the weights of your networks
 
 To help your models converge, you should initialize the weights of the convolutional and linear layers in your model. From reading the [original DCGAN paper](https://arxiv.org/pdf/1511.06434.pdf), they say:
@@ -436,6 +438,7 @@ Output:
     )
 ```
 
+---
 ### Training on GPU
 
 Checking if we can train on GPU. Here, we'll set this as a boolean variable `train_on_gpu`. Later, we'll be responsible for making sure that 
@@ -533,7 +536,6 @@ Define optimizers for your models with appropriate hyperparameters.
 >g_optimizer = optim.Adam(G.parameters(), lr, [beta1, beta2])
 >```
 
----
 ### Training
 
 Training will involve alternating between training the discriminator and the generator. We'll use your functions `real_loss` and `fake_loss` to help you calculate the discriminator losses.
@@ -692,7 +694,7 @@ Output:
     ..
     Epoch [10/10] | d_loss: 0.2544 | g_loss: 3.4693
 ```
-
+---
 ### Training loss
 
 Plot the training losses for the generator and discriminator, recorded after each epoch.
@@ -711,7 +713,7 @@ Output:
 ```
 ![png](https://raw.githubusercontent.com/shrikantnaidu/shrikantnaidu.github.io/main/_posts/assets/output_38_1.png)
     
-
+---
 ### Generator samples from training
 
 View samples of images from the generator, and observing the strengths and weaknesses of our trained models.
@@ -741,6 +743,11 @@ Output:
 ```
 ![png](https://raw.githubusercontent.com/shrikantnaidu/shrikantnaidu.github.io/main/_posts/assets/output_42_0.png)
 
+---
 
+### Conclusion
 
+We've successfully developed a deep convolutional generative adversarial network (DCGAN) to generate realistic human faces from random noise. The model was trained on the CelebFaces Attributes Dataset (CelebA), which contains over 200,000 celebrity images. The trained model is able to generate new images of faces that look as realistic as possible. 
+
+The complete implementation can be found in the [GitHub repository](https://github.com/shrikantnaidu/Face-Generation).
 
