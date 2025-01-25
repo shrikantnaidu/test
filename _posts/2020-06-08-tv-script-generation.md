@@ -7,6 +7,10 @@ image: "assets/images/masonary-post/tv-scripts.jpg"
 categories: 
   - "Deep Learning"
 ---
+
+## [Generate TV Scripts](https://github.com/shrikantnaidu/Generate-TV-Scripts)
+
+---
 ### Why We're Here 
 
 In this project, we'll generate our own [Seinfeld](https://en.wikipedia.org/wiki/Seinfeld) TV scripts using RNNs. We'll be using part of the [Seinfeld dataset](https://www.kaggle.com/thec03u5/seinfeld-chronicles#scripts.csv) of scripts from 9 seasons.  The Neural Network we'll build will generate a new ,"fake" TV script, based on patterns it recognizes in this training data.
@@ -67,6 +71,7 @@ Output:
     george: yes, it was purple, i liked it, i dont actually recall considering the buttons. 
 ```
 
+---
 ### Implement Pre-processing Functions
 
 The first thing to do to any dataset is pre-processing. Implement the following pre-processing functions below:
@@ -110,22 +115,23 @@ Output:
     Tests Passed
 ```
 
+---
 ### Tokenize Punctuation
 
 We'll be splitting the script into a word array using spaces as delimiters.  However, punctuations like periods and exclamation marks can create multiple ids for the same word. 
 
 We create a dictionary for the following symbols where the symbol is the key and value is the token:
 
-- Period ( **.** )
-- Comma ( **,** )
-- Quotation Mark ( **"** )
-- Semicolon ( **;** )
-- Exclamation mark ( **!** )
-- Question mark ( **?** )
-- Left Parentheses ( **(** )
-- Right Parentheses ( **)** )
-- Dash ( **-** )
-- Return ( **\n** )
+- a. Period ( **.** )
+- b. Comma ( **,** )
+- c. Quotation Mark ( **"** )
+- d. Semicolon ( **;** )
+- e. Exclamation mark ( **!** )
+- f. Question mark ( **?** )
+- g. Left Parentheses ( **(** )
+- h. Right Parentheses ( **)** )
+- i. Dash ( **-** )
+- j. Return ( **\n** )
 
 This dictionary will be used to tokenize the symbols and add the delimiter (space) around it. This separates each symbols as its own word, making it easier for the neural network to predict the next word. Make sure you don't use a value that could be confused as a word.
 
@@ -158,6 +164,7 @@ Output:
     Tests Passed
 ```
 
+---
 ### Pre-process all the data and save it
 
 We pre-process all the data and save it to a file.
@@ -216,25 +223,29 @@ Implement the `batch_data` function to batch `words` data into chunks of size `b
 We can batch words using the DataLoader, but it will be up to us to create `feature_tensors` and `target_tensors` of the correct size and content for a given `sequence_length`.
 
 For example, say we have these as input:
-```
-words = [1, 2, 3, 4, 5, 6, 7]
-sequence_length = 4
-```
+
+>```
+>words = [1, 2, 3, 4, 5, 6, 7]
+>sequence_length = 4
+>```
 
 Our first `feature_tensor` should contain the values:
-```
-[1, 2, 3, 4]
-```
-And the corresponding `target_tensor` should just be the next "word"/tokenized word value:
-```
-5
-```
-This should continue with the second `feature_tensor`, `target_tensor` being:
-```
-[2, 3, 4, 5]  # features
-6             # target
-```
+>```
+>[1, 2, 3, 4]
+>```
 
+And the corresponding `target_tensor` should just be the next "word"/tokenized word value:
+>```
+>5
+>```
+
+This should continue with the second `feature_tensor`, `target_tensor` being:
+>```
+>[2, 3, 4, 5]  # features
+>6             # target
+>```
+
+Code Snippet:
 
 >```python
 >from torch.utils.data import TensorDataset, DataLoader
@@ -315,6 +326,7 @@ Output:
     Target shape: torch.Size([3])
 ```
 
+---
 ### Test your dataloader 
 
 We'll have to modify this code to test a batching function, but it should look fairly similar.
@@ -340,6 +352,7 @@ torch.Size([10])
 tensor([ 33,  26,  22,  39,  16,  28,  11,  43,  30,  12])
 ```
 
+---
 ### Sizes
 
 Our sample_x should be of size `(batch_size, sequence_length)` or (10, 5) in this case and sample_y should just have one dimension: batch_size (10). 
@@ -382,8 +395,8 @@ Output:
     torch.Size([10])
     tensor([ 31,   8,  34,  33,  27,  49,  15,  30,   9,  41])
 ```
----
 
+---
 ### Build the Neural Network
 
 We implement an RNN using PyTorch's [Module class](http://pytorch.org/docs/master/nn.html#torch.nn.Module). You may choose to use a GRU or an LSTM. To complete the RNN, we'll have to implement the following functions for the class:
@@ -397,8 +410,8 @@ The initialize function should create the layers of the neural network and save 
 
 ### Note
 
-1. Make sure to stack the outputs of the lstm to pass to your fully-connected layer, you can do this with `lstm_output = lstm_output.contiguous().view(-1, self.hidden_dim)`
-2. You can get the last batch of word scores by shaping the output of the final, fully-connected layer like so:
+- a. Make sure to stack the outputs of the lstm to pass to your fully-connected layer, you can do this with `lstm_output = lstm_output.contiguous().view(-1, self.hidden_dim)`
+- b. You can get the last batch of word scores by shaping the output of the final, fully-connected layer like so:
 
     >```python
     ># reshape into (batch_size, seq_length, output_size)
@@ -505,6 +518,7 @@ Output:
     Tests Passed
 ```
 
+---
 ### Define forward and backpropagation
 
 Using the RNN class to apply forward and back propagation. This function will be called, iteratively, in the training loop as follows:
@@ -564,6 +578,7 @@ Output:
     Tests Passed
 ``` 
 
+---
 ### Neural Network Training
 
 With the structure of the network complete and data ready to be fed in the neural network, it's time to train it.
@@ -622,45 +637,45 @@ Set and train the neural network with the following parameters:
 
 If the network isn't getting the desired results, tweak these parameters and/or the layers in the `RNN` class.
 
+#### Data parameters:
 
->```python
-># Data params
-># Sequence Length
+###### a. Sequence Length
 >sequence_length = 10  # of words in a sequence
->
-># Batch Size
->batch_size = 256
->
-># data loader - do not change
->train_loader = batch_data(int_text, sequence_length, batch_size)
->
-># Training parameters
-># Number of Epochs
->num_epochs = 15
-># Learning Rate
->learning_rate = 0.001
->
-># Model parameters
-># Vocab size
->vocab_size = len(vocab_to_int)
->
-># Output size
->>output_size = vocab_size
->
-># Embedding Dimension
->
->embedding_dim = 200
->
-># Hidden Dimension
->hidden_dim = 300
->
-># Number of RNN Layers
->n_layers = 2
->
-># Show stats for every n number of batches
->show_every_n_batches = 500
->```
 
+###### b. Batch Size
+>batch_size = 256
+
+###### c. data loader - do not change
+>train_loader = batch_data(int_text, sequence_length, batch_size)
+
+#### Training parameters:
+###### a. Number of Epochs
+>num_epochs = 15
+
+###### b. Learning Rate
+>learning_rate = 0.001
+
+#### Model parameters
+###### a. Vocab size
+>vocab_size = len(vocab_to_int)
+
+###### b. Output size
+>output_size = vocab_size
+
+###### c. Embedding Dimension
+
+>embedding_dim = 200
+
+###### d. Hidden Dimension
+>hidden_dim = 300
+
+###### e. Number of RNN Layers
+>n_layers = 2
+
+###### f. Show stats for every n number of batches
+>show_every_n_batches = 500
+
+---
 ### Train
 
 In the next cell, we'll train the neural network on the pre-processed data.  If you have a hard time getting a good loss, you may consider changing your hyperparameters. In general, we get better results with larger hidden and n_layer dimensions, but larger models take a longer time to train. 
@@ -879,6 +894,7 @@ Output:
     jerry: well, i just don't want to have a
 ```
 
+---
 #### Save your favorite scripts
 
 Once you have a script that you like (or find interesting), save it to a text file!
@@ -917,8 +933,14 @@ It's ok if the TV script doesn't make perfect sense. It should look like alterna
 >
 >kramer:(laughing) you know...(to jerry) you don't know.
 
+---
 We can see that there are multiple characters that say (somewhat) complete sentences, but it doesn't have to be perfect! It takes quite a while to get good results, and often, you'll have to use a smaller vocabulary (and discard uncommon words), or get more data.  
 
+### Conclusion
+
+We've successfully developed an algorithm that generates original TV scripts by training on Seinfeld dialogue data. The model was initially built using RNNs, and we leveraged pre-processing functions to prepare the data for training. We then implemented the RNN Module and forward and backpropagation functions to build the neural network. Finally, we trained the network using a train loop and hyperparameters.
+
+The complete implementation can be found in the [GitHub repository](https://github.com/shrikantnaidu/Generate-TV-Scripts).
 
 
 
