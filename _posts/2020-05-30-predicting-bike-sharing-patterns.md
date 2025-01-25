@@ -8,8 +8,7 @@ categories:
   - "Deep Learning"
 ---
 
-## Predicting Bike Sharing Patterns
-<!-- ## [Predicting Bike Sharing Patterns](https://github.com/shrikantnaidu/Predicting-Bike-Sharing-Patterns) -->
+## [Predicting Bike Sharing Patterns](https://github.com/shrikantnaidu/Predicting-Bike-Sharing-Patterns)
 
 ---
 ### Why We're Here 
@@ -46,7 +45,7 @@ Output:
 ```
 <img src="https://raw.githubusercontent.com/shrikantnaidu/shrikantnaidu.github.io/main/_posts/assets/rides_table.png" alt="image" height="150" width="400">
 
-
+---
 ### Checking out the data
 
 This dataset has the number of riders for each hour of each day from January 1 2011 to December 31 2012. The number of riders is split between casual and registered, summed up in the `cnt` column. You can see the first few rows of the data above.Below is a plot showing the number of bike riders over the first 10 days or so in the data set. 
@@ -63,7 +62,7 @@ Output:
 ```
 <img src="https://raw.githubusercontent.com/shrikantnaidu/shrikantnaidu.github.io/main/_posts/assets/output_6_1.png" alt="image" height="300" width="300">
     
-
+---
 ### Dummy variables for categorical features
 
 Here we have some categorical variables like season, weather, month. To include these in our model, we'll need to make binary dummy variables. This is simple to do with Pandas thanks to `get_dummies()`.
@@ -88,7 +87,7 @@ Output:
 ```
 <img src="https://raw.githubusercontent.com/shrikantnaidu/shrikantnaidu.github.io/main/_posts/assets/rides-table-2.png" alt="image" height="150" width="400">
 
-
+---
 ### Scaling target variables
 
 To make training the network easier, we'll standardize each of the continuous variables. That is, we'll shift and scale the variables such that they have zero mean and a standard deviation of 1.
@@ -237,6 +236,7 @@ Output:
     <unittest.runner.TextTestResult run=5 errors=0 failures=0>
 ```
 
+---
 ### Training the network
 
 The strategy here is to find hyperparameters such that the error on the training set is low, but we're not overfitting to the data. If we train the network too long or have too many hidden nodes, it can become overly specific to the training set and will fail to generalize to the validation set. That is, the loss on the validation set will start increasing as the training set loss drops.
@@ -300,6 +300,7 @@ Progress: 0.1% ... Training loss: 71.64 ... Validation loss: 18.54
 Progress: 100.0% ... Training loss: 0.076 ... Validation loss: 0.160
 ```
 
+---
 ### Plotting the train and validation loss 
 
 >```python
@@ -314,6 +315,7 @@ Output:
 ```
 <img src="https://raw.githubusercontent.com/shrikantnaidu/shrikantnaidu.github.io/main/_posts/assets/output_22_0.png" alt="image" height="400" width="400"> 
 
+---
 ### Check out your predictions
 
 Here, we use the test data to view how well your network is modeling the data.
@@ -340,6 +342,7 @@ Output:
 ```
 <img src="https://raw.githubusercontent.com/shrikantnaidu/shrikantnaidu.github.io/main/_posts/assets/output_24_1.png" alt="image"> 
 
+---
 ### Observations:
 
 The demand seems high in the mid-week of December and the model seems to correctly predict the trend before christmas since model did not receive any information about the change in trend due to a holiday week,the model could not precisely predict the data during christmas.
@@ -347,3 +350,5 @@ The demand seems high in the mid-week of December and the model seems to correct
 ### Conclusion
 
 We successfully built a numpy based neural network for predicting the daily bike rentals by transforming and scaling the data according to the input requirement of our neural network. The model does a decent job on most days except the holiday season which might be due to lack of information on holidays.
+
+The complete implementation can be found in the [GitHub repository](https://github.com/shrikantnaidu/Predicting-Bike-Sharing-Patterns).
