@@ -310,11 +310,8 @@ Processing steps:
 >  - DDL for schema definition
 >  - DML for data manipulation
 >  - Complex joins and aggregations
->
->4. JSON
->  - Nested data structure handling
->  - Data extraction and parsing
 >```
+
 
 ## Future Improvements
 
