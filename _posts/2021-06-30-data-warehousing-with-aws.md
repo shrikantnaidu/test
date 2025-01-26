@@ -53,11 +53,11 @@ The objective of this project is to build an ETL (Extract, Transform, Load) pipe
 - • Includes CREATE, DROP, INSERT, and SELECT statements.
 - • Centralizes query management for maintainability.
 
-## Database Schema Design
+### Database Schema Design
 
 The database uses a star schema optimized for song play analysis. This design prioritizes denormalization and simplifies queries while maintaining data integrity.
 
-### Table Overview
+#### Table Overview
 
 | Table           ||| Description                   |
 |-----------------|||-------------------------------|
@@ -69,7 +69,7 @@ The database uses a star schema optimized for song play analysis. This design pr
 | artists          ||| Table for the artists data    |
 | time             ||| Table for time-related data   |
 
-### Fact Table
+#### Fact Table
 
 **songplays** - Records in event data associated with song plays.
 >```sql
@@ -90,7 +90,7 @@ The database uses a star schema optimized for song play analysis. This design pr
 > );
 >```
 
-### Dimension Tables
+#### Dimension Tables
 
 **users** - User information.
 >```sql
@@ -138,9 +138,9 @@ The database uses a star schema optimized for song play analysis. This design pr
 >);
 >```
 
-## ETL Pipeline Implementation
+### ETL Pipeline Implementation
 
-### 1. Song Data Processing
+#### 1. Song Data Processing
 
 The ETL pipeline first processes song data from JSON files structured like:
 >```json
@@ -158,7 +158,7 @@ The ETL pipeline first processes song data from JSON files structured like:
 >}
 >```
 
-### 2. Log Data Processing
+#### 2. Log Data Processing
 
 Next, it processes user activity logs:
 >```json
@@ -184,11 +184,11 @@ Next, it processes user activity logs:
 >}
 >```
 
-### 3. Loading Data into Redshift
+#### 3. Loading Data into Redshift
 
 The `COPY` command is a powerful feature of Amazon Redshift that allows for efficient loading of large datasets from Amazon S3 into Redshift tables. It is optimized for high throughput and can load data in parallel, making it suitable for big data applications.
 
-#### Example of the COPY Command
+##### Example of the COPY Command
 >```sql
 >COPY songplays
 >FROM 's3://your-bucket/songplays/'
@@ -209,9 +209,9 @@ Amazon Redshift is a fully managed, petabyte-scale data warehouse service in the
 - c. **Integration:** Seamlessly integrates with various AWS services, including S3, for data storage and retrieval.
 - d. **Security:** Provides robust security features, including encryption and IAM roles for access control.
 
-## Example Queries and Results
+#### Example Queries and Results
 
-### 1. Most Active Users
+#### 1. Most Active Users
 >```sql
 >SELECT u.first_name, u.last_name, COUNT(*) as play_count
 >FROM songplays sp
@@ -221,7 +221,7 @@ Amazon Redshift is a fully managed, petabyte-scale data warehouse service in the
 >LIMIT 5;
 >```
 
-### 2. Popular Music Hours
+#### 2. Popular Music Hours
 >```sql
 >SELECT EXTRACT(HOUR FROM start_time) AS hour, COUNT(*) as play_count
 >FROM songplays
@@ -229,7 +229,7 @@ Amazon Redshift is a fully managed, petabyte-scale data warehouse service in the
 >ORDER BY play_count DESC;
 >```
 
-## How to Run
+### How to Run
 
 To set up and run the project, follow these steps:
 
@@ -276,7 +276,7 @@ Create a `dwh.cfg` file with your AWS credentials and Redshift cluster details. 
 >python etl.py
 >```
 
-## Key Achievements
+### Key Achievements
 
 
 - a. Designed an optimized star schema for efficient querying of music streaming data.
@@ -287,7 +287,7 @@ Create a `dwh.cfg` file with your AWS credentials and Redshift cluster details. 
 - f. Implemented error handling and logging for pipeline monitoring.
 
 
-## Technologies Used
+### Technologies Used
 
 
 • **Python 3.7+**
@@ -308,7 +308,7 @@ Create a `dwh.cfg` file with your AWS credentials and Redshift cluster details. 
 - • Complex joins and aggregations
 
 
-## Future Improvements
+### Future Improvements
 
 - a. Add data quality checks and constraints.
 - b. Implement incremental loading.
@@ -317,7 +317,7 @@ Create a `dwh.cfg` file with your AWS credentials and Redshift cluster details. 
 - e. Implement logging and monitoring.
 - f. Add a data visualization dashboard.
 
-## Conclusion
+### Conclusion
 
 This project successfully demonstrates the process of building a data warehousing solution on AWS for Sparkify. By leveraging AWS Redshift and an efficient ETL pipeline, the analytics team can now easily query and analyze user activity data, leading to valuable insights into user behavior and song popularity.
 
