@@ -71,7 +71,7 @@ Have an unsolvable problem? I'm just an mail away – **shrikantnaidu777@gmail.c
         </div>
         <div class="slide">
             <img src="/assets/images/img-2.png" alt="Image 2">
-            <div class="caption">Extraordinary Diligence Award 2024/div>
+            <div class="caption">Extraordinary Diligence Award 2024</div>
         </div>
         <!-- <div class="slide">
             <img src="/assets/images/image3.jpg" alt="Image 3">
